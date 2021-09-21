@@ -2,13 +2,17 @@ import React from 'react'
 import classnames from 'classnames'
 
 import './NavBar.css'
+import leftArrow from '../../assets/left-arrow.svg'
 
 export interface NavBarProps {
   className?: string
+  title: string
+  canGoBack: boolean
+  onBack: () => void
 }
 
 export function NavBar(props: NavBarProps) {
-  const { className } = props
+  const { className, title, canGoBack, onBack } = props
 
   // TODO:
   // - Define a prop to receive title (string), button whether to display back button (boolean) and action to do when back button is clicked (function)
@@ -24,7 +28,12 @@ export function NavBar(props: NavBarProps) {
 
   return (
     <nav className={classnames("navbar", className)}>
-      {/* TODO */}
+        <button className='navbar__back-btn' onClick={onBack}>
+            <img src={leftArrow} />
+        </button>
+        <span className='navbar__label'>
+            {title}
+        </span>
     </nav>
   )
 }

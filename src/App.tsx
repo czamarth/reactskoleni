@@ -1,6 +1,8 @@
 import React from 'react'
 
 import './App.css'
+import { DayPicker, NavBar, NoteView } from './components'
+
 
 export function App() {
 
@@ -15,7 +17,11 @@ export function App() {
 
   return (
     <div className="app">
-      {/* TODO */}
+      <NavBar className='app__navbar' />
+      {/* <NoteView
+      /> */}
+      <DayPicker className='app__content' 
+      />
     </div>
   )
 }
