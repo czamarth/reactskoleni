@@ -7,10 +7,12 @@ import './DayPicker.css'
 
 export interface DayPickerProps {
   className?: string
+  selectedDay: Date | null
+  onSelectDay: (day: Date) => void
 }
 
 export function DayPicker(props: DayPickerProps) {
-  const { className } = props
+  const { className, selectedDay, onSelectDay } = props
 
   // TODO:
   // - Integrate a react-calendar library (don't forget to import it's CSS)
@@ -22,13 +24,13 @@ export function DayPicker(props: DayPickerProps) {
   // - day-picker__day--non-empty
   // - day-picker__day--empty
 
-  const [selectedDay, selectDay] = React.useState<Date | null>(null);  // string or null type
+
 
   return (
     <Calendar 
       className={classNames('day-picker', className)}  // make it reusable from the top and we don't want to change the global layout from the component
       value={selectedDay}
-      onChange={selectDay}
+      onChange={onSelectDay}
     />
   )
 }

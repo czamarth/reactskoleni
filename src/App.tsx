@@ -15,13 +15,31 @@ export function App() {
   // - app__navbar
   // - app__content
 
+  const [selectedDay, selectDay] = React.useState<Date | null>(null);  // string or null type
+
   return (
     <div className="app">
-      <NavBar className='app__navbar' />
-      {/* <NoteView
-      /> */}
-      <DayPicker className='app__content' 
-      />
+      <NavBar 
+        title='Done App'
+        canGoBack={selectedDay !== null}
+        onBack={() => {
+            selectDay(null)
+        }}
+        className='app__navbar' />
+        
+      {!selectedDay && (
+        <DayPicker 
+            selectedDay={selectedDay}
+            onSelectDay={selectDay} 
+            className='app__content'
+        />
+      )}
+
+      {selectedDay && (
+          <NoteView
+          />
+      )}
+      
     </div>
   )
 }

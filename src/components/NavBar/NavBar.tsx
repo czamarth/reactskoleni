@@ -3,12 +3,13 @@ import classnames from 'classnames'
 
 import './NavBar.css'
 import leftArrow from '../../assets/left-arrow.svg'
+import logo from '../../assets/logo.svg'
 
 export interface NavBarProps {
   className?: string
   title: string
   canGoBack: boolean
-  onBack: () => void
+  onBack?: () => void
 }
 
 export function NavBar(props: NavBarProps) {
@@ -28,9 +29,16 @@ export function NavBar(props: NavBarProps) {
 
   return (
     <nav className={classnames("navbar", className)}>
+        {canGoBack && (   // conditional rendering if it is, last argument is returned
         <button className='navbar__back-btn' onClick={onBack}>
-            <img src={leftArrow} />
+            <img src={leftArrow} alt='Back icon' className='navbar__back-btn__icon' />
         </button>
+        )}
+        {!canGoBack && (
+            <img src={logo} alt='Logo' className='navbar__logo' />
+            )
+        }
+
         <span className='navbar__label'>
             {title}
         </span>
