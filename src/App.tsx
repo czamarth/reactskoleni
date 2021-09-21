@@ -2,6 +2,8 @@ import React from 'react'
 
 import './App.css'
 import { DayPicker, NavBar, NoteView } from './components'
+import { useStoreProvider } from './Store';
+import { formatDay } from './utils';
 
 
 export function App() {
@@ -17,14 +19,20 @@ export function App() {
 
   const [selectedDay, selectDay] = React.useState<Date | null>(null);  // string or null type
 
+  const store = useStoreProvider();
+
+  const title = selectedDay !== null ? formatDay(selectedDay) : 'Done App';
+
+  const handleBack = React.useCallback( () => {
+      selectDay(null)
+    }, [selectDay])
+
   return (
     <div className="app">
       <NavBar 
-        title='Done App'
+        title={title}
         canGoBack={selectedDay !== null}
-        onBack={() => {
-            selectDay(null)
-        }}
+        onBack={handleBack}
         className='app__navbar' />
         
       {!selectedDay && (
@@ -32,11 +40,15 @@ export function App() {
             selectedDay={selectedDay}
             onSelectDay={selectDay} 
             className='app__content'
+            store={store}
         />
       )}
 
       {selectedDay && (
-          <NoteView
+          <NoteView 
+            className='app__content' 
+            store={store} 
+            selectedDay={selectedDay}
           />
       )}
       
